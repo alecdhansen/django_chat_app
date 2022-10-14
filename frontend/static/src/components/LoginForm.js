@@ -9,9 +9,6 @@ function LoginForm(props) {
     username: "",
     password: "",
   });
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -41,47 +38,59 @@ function LoginForm(props) {
     } else {
       const data = await response.json();
       Cookies.set("Authorization", `Token ${data.key}`);
-      props.setAuth(true);
+      props.setauth();
+      props.onHide();
     }
   };
-
   return (
-    <div className="login">
-      <form onSubmit={handleSubmit} className="loginform">
-        Login
-        <div>
-          <label htmlFor="username" className="labelwrap">
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            required
-            onChange={handleInput}
-            value={state.username}
-            name="username"
-          ></input>
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Modal heading
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="login">
+          <form onSubmit={handleSubmit} className="loginform">
+            Login
+            <div>
+              <label htmlFor="username" className="labelwrap">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                required
+                onChange={handleInput}
+                value={state.username}
+                name="username"
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="password" className="labelwrap">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+                onChange={handleInput}
+                value={state.password}
+                name="password"
+              ></input>
+            </div>
+            <Button type="submit">Submit</Button>
+          </form>
         </div>
-        <div>
-          <label htmlFor="password" className="labelwrap">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
-            onChange={handleInput}
-            value={state.password}
-            name="password"
-          ></input>
-        </div>
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
-      </form>
-    </div>
+      </Modal.Body>
+    </Modal>
   );
 }
 export default LoginForm;
