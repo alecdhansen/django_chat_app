@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import LoginForm from "./components/LoginForm";
+import Button from "react-bootstrap/Button";
+import { useState } from "react";
+import Cookies from "js-cookie";
 
 function App() {
+  const [state, setState] = useState("");
+  const [auth, setAuth] = useState(!!Cookies.get("Authorization"));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header className="header">
+        <div className="titles">
+          <h2 className="title">CHATTN</h2>
+          <span className="subtitle">never be lonely again</span>
+        </div>
+        <Button>Logout</Button>
       </header>
-    </div>
+      <div className="App">
+        <LoginForm setAuth={setAuth} />
+      </div>
+    </>
   );
 }
 
