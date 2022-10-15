@@ -1,43 +1,48 @@
 import "./App.css";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import LoginForm from "./components/LoginForm";
-import LoadPage from "./components/LoadPage";
-import ChatApp from "./components/ChatApp";
-import Register from "./components/Register";
+import LoadPage from "./components/Login/LoadPage";
+import ChatApp from "./components/ChatApp/ChatApp";
+import Footer from "./components/ChatApp/Footer";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import Cookies from "js-cookie";
 
-{
-  /* <div>{auth ? <ChatApp /> : <LoadPage setAuth={setAuth} />}</div> */
-}
-
 function App() {
   const [state, setState] = useState("");
   const [auth, setAuth] = useState(!!Cookies.get("Authorization"));
-  // const [selection, setSelection] = useState("App");
 
-  // let html;
-  //
-
-  // if (selection == "App") {
-  //   html = <LoadPage />;
-  // } else if (selection == "Login") {
-  //   html = <LoginForm />;
-  // } else if (selection == "Register") {
-  //   html = <Register />;
+  // async function logOut() {
+  //   const response = await fetch("/rest-auth/logout/", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       // 'X-CSRFToken': Cookies.get('csrftoken'),
+  //     },
+  //     body: JSON.stringify(),
+  //   });
+  //   if (!response.ok) {
+  //     console.warn(response);
+  //   } else {
+  //     const data = await response.json();
+  //     Cookies.remove("Authorization");
+  //     setAuth(false);
+  //   }
   // }
+
   return (
-    <div>
+    <div className="body">
       <header className="header">
         <div className="titles">
           <h2 className="title">CHATTN</h2>
           <span className="subtitle">never be lonely again</span>
         </div>
-        <Button onClick={() => setAuth(false)}>Logout</Button>
+        <Button className="button" onClick={() => setAuth(false)}>
+          Logout
+        </Button>
       </header>
-      <LoadPage setAuth={() => setAuth(true)} />
+      <div>
+        {auth ? <ChatApp /> : <LoadPage setAuth={() => setAuth(true)} />}
+      </div>
+      <Footer />
     </div>
   );
 }
