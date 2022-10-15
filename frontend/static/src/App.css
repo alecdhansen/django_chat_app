@@ -15,6 +15,7 @@
   border: none;
   margin-right: 10%;
   transition: 0.2s;
+  font-weight: 500;
 }
 .button:hover {
   border-radius: 63px;
@@ -23,6 +24,7 @@
   border: none;
   transition: 0.2s;
   transform: scale(1.1);
+  font-weight: 500;
 }
 .modalbtn {
   border-radius: 35px;
@@ -32,6 +34,7 @@
   color: rgb(229, 70, 70);
   transition: 0.2s;
   padding: 6px 20px;
+  font-weight: 500;
 }
 .modalbtn:hover {
   color: rgb(229, 70, 70);
@@ -40,6 +43,7 @@
   box-shadow: 5px 5px 10px #656565, -5px -5px 10px #ffffff;
   transition: 0.2s;
   transform: scale(1.1);
+  font-weight: 500;
 }
 .bn {
   margin-bottom: 30px;
@@ -50,6 +54,7 @@
   color: rgb(229, 70, 70);
   padding: 6px 20px;
   transition: 0.2s;
+  font-weight: 500;
 }
 .bn:hover {
   margin-bottom: 30px;
@@ -60,6 +65,7 @@
   color: rgb(229, 70, 70);
   transition: 0.2s;
   transform: scale(1.1);
+  font-weight: 500;
 }
 .header {
   display: flex;
@@ -76,8 +82,8 @@
 }
 .title {
   color: rgb(229, 70, 70);
-  font-size: 50px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 75px;
+  font-family: "East Sea Dokdo", cursive;
   font-weight: 900;
   font-style: oblique;
   text-shadow: 1px 1px 2px white;
@@ -105,8 +111,12 @@
   width: 50%;
   margin-top: -5%;
   border-radius: 30px;
-  background: linear-gradient(145deg, rgb(229, 70, 70), rgb(226, 91, 91));
   box-shadow: 5px 5px 14px #747474, -3px -3px 14px #b8b8b8;
+  background: linear-gradient(
+    90deg,
+    rgb(229, 70, 70) 0%,
+    rgb(231, 110, 110) 100%
+  );
 }
 .loadpage > h2 {
   margin-top: 30px;
@@ -125,7 +135,11 @@
   align-items: center;
   height: 200px;
   width: 450px;
-  background-color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgb(234, 234, 234) 0%,
+    rgb(222, 222, 222) 100%
+  );
   border-radius: 30px;
   box-shadow: 5px 5px 14px #848484, -28px -28px 46px #ffffff;
   margin: 30px 0px;
@@ -138,7 +152,11 @@
   align-items: center;
   height: 300px;
   width: 450px;
-  background-color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgb(234, 234, 234) 0%,
+    rgb(222, 222, 222) 100%
+  );
   border-radius: 30px;
   box-shadow: 5px 5px 14px #848484, -28px -28px 46px #ffffff;
   margin: 30px 0px;

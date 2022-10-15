@@ -11,6 +11,7 @@ class Room(models.Model):
 
 class Message(models.Model):
     text = models.CharField(max_length=255)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True
     )
