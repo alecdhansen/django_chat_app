@@ -19,3 +19,6 @@ urlpatterns = [
         MessageDetailAPIView.as_view(),
     ),
 ]
+
+
+#  path("rooms/<int:pk>/messages/", MessageListAPIView.as_view()), line 16

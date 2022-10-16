@@ -1,30 +1,33 @@
 import { useState, useCallback, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function RoomList({ rooms, addRoom, getMessages }) {
   const [room, setRoom] = useState({
     name: "",
   });
 
-  function handleChange(event) {
-    setRoom(event.target.value);
+  function handleChange(e) {
+    setRoom(e.target.value);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
     addRoom(room);
     setRoom("");
   }
 
   const html = rooms.map((room) => (
-    <button
+    <Button
+      name={room.id}
       type="button"
       value={room.id}
       key={room.title}
-      className="li"
+      className="roombtn"
       onClick={getMessages}
     >
-      <h2>{room.title}</h2>
-    </button>
+      <h2 className="roomtitle">{room.title}</h2>
+    </Button>
   ));
 
   if (!rooms) {
@@ -32,19 +35,23 @@ function RoomList({ rooms, addRoom, getMessages }) {
   }
 
   return (
-    <div>
-      Chat Rooms
-      <div>{html}</div>
-      <form onSubmit={handleSubmit}>
-        <input
+    <>
+      <h2 className="chatroomstitle">Chat Rooms</h2>
+
+      <Form className="roomsubmit" onSubmit={handleSubmit}>
+        <Form.Control
           type="text"
           placeholder="Add Room"
+          className="input"
           name="new-room"
           onChange={handleChange}
         />
-        <button type="submit">Add Room</button>
-      </form>
-    </div>
+        <Button className="submitbutton" type="submit">
+          Add Room
+        </Button>
+      </Form>
+      <div className="roombtnlist">{html}</div>
+    </>
   );
 }
 export default RoomList;

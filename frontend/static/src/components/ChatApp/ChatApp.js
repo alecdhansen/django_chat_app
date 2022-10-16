@@ -1,6 +1,8 @@
 import RoomList from "./RoomList";
 import Messages from "./Messages";
 import Cookies from "js-cookie";
+import Button from "react-bootstrap/Button";
+import Footer from "./Footer";
 import { useState, useCallback, useEffect } from "react";
 
 function ChatApp() {
@@ -48,11 +50,11 @@ function ChatApp() {
   const getMessages = async (e) => {
     const response = await fetch(`/api_v1/rooms/1/messages/`);
     const data = await response.json();
-    // const matchedRoom = rooms.find((room) => {
-    //   const roomIdString = room.id.toString();
-    //   return roomIdString === event.target.value;
-    // });
-    // setShow(matchedRoom);
+    const matchedRoom = rooms.find((room) => {
+      const roomIdString = room.id.toString();
+      return roomIdString === e.target.value;
+    });
+    setShow(matchedRoom);
     setMessages(data);
   };
 
@@ -71,9 +73,13 @@ function ChatApp() {
   }, []);
 
   return (
-    <div>
-      <RoomList rooms={rooms} addRoom={addRoom} getMessages={getMessages} />
-      <Messages messages={messages} />
+    <div className="chatapp">
+      <aside className="aside">
+        <RoomList rooms={rooms} addRoom={addRoom} getMessages={getMessages} />
+      </aside>
+      <main className="mainmessages">
+        <Messages messages={messages} />
+      </main>
     </div>
   );
 }
