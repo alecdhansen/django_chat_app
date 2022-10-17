@@ -1,14 +1,13 @@
 import RoomList from "./RoomList";
 import Messages from "./Messages";
 import Cookies from "js-cookie";
-import Button from "react-bootstrap/Button";
-import Footer from "./Footer";
 import { useState, useCallback, useEffect } from "react";
 
 function ChatApp() {
   const [rooms, setRooms] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [show, setShow] = useState({ id: 0, title: "" });
+  const [roomName, setRoomName] = useState("");
+  const [roomID, setRoomID] = useState(0);
 
   const handleError = (err) => {
     console.warn(err);
@@ -48,29 +47,36 @@ function ChatApp() {
   };
 
   const getMessages = async (e) => {
-    const response = await fetch(`/api_v1/rooms/1/messages/`);
+    console.log("event", e.target);
+    const response = await fetch(
+      `/api_v1/rooms/${e.target.value}/messages/`
+    ).catch(handleError);
     const data = await response.json();
-    const matchedRoom = rooms.find((room) => {
-      const roomIdString = room.id.toString();
-      return roomIdString === e.target.value;
-    });
-    setShow(matchedRoom);
+    setRoomName(e.target.name);
+    setRoomID(e.target.value);
     setMessages(data);
   };
 
-  const getRooms = async () => {
-    const response = await fetch("/api_v1/rooms/").catch(handleError);
-    if (!response.ok) {
-      throw new Error("Network response not OK");
-    } else {
-      const data = await response.json();
-      setRooms(data);
+  const addMessages = async (text, e) => {
+    const newMessage = {
+      text,
+      room: parseInt(roomID),
+      author: 1,
+    };
+    const response = await fetch(`/api_v1/rooms/${roomID}/messages/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify(newMessage),
+    });
+    if (response.ok) {
+      console.log(response);
+      setMessages([...messages, newMessage]);
+      return response.json();
     }
   };
-
-  useEffect(() => {
-    getRooms();
-  }, []);
 
   return (
     <div className="chatapp">
@@ -78,7 +84,12 @@ function ChatApp() {
         <RoomList rooms={rooms} addRoom={addRoom} getMessages={getMessages} />
       </aside>
       <main className="mainmessages">
-        <Messages messages={messages} />
+        <div>{roomName}</div>
+        <Messages
+          messages={messages}
+          addMessages={addMessages}
+          roomName={roomName}
+        />
       </main>
     </div>
   );

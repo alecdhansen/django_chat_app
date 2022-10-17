@@ -19,14 +19,14 @@ function RoomList({ rooms, addRoom, getMessages }) {
 
   const html = rooms.map((room) => (
     <Button
-      name={room.id}
+      name={room.title}
       type="button"
       value={room.id}
       key={room.title}
       className="roombtn"
       onClick={getMessages}
     >
-      <h2 className="roomtitle">{room.title}</h2>
+      {room.title}
     </Button>
   ));
 
@@ -37,7 +37,6 @@ function RoomList({ rooms, addRoom, getMessages }) {
   return (
     <>
       <h2 className="chatroomstitle">Chat Rooms</h2>
-
       <Form className="roomsubmit" onSubmit={handleSubmit}>
         <Form.Control
           type="text"
