@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { IoMdAdd } from "react-icons/io";
 
 function RoomList({ rooms, addRoom, getMessages }) {
   const [room, setRoom] = useState({
@@ -40,13 +41,13 @@ function RoomList({ rooms, addRoom, getMessages }) {
       <Form className="roomsubmit" onSubmit={handleSubmit}>
         <Form.Control
           type="text"
-          placeholder="Add Room"
+          placeholder="Add Room..."
           className="input"
           name="new-room"
           onChange={handleChange}
         />
-        <Button className="submitbutton" type="submit">
-          Add Room
+        <Button className="submitbutton messagesubmitbutton" type="submit">
+          <IoMdAdd />
         </Button>
       </Form>
       <div className="roombtnlist">{html}</div>

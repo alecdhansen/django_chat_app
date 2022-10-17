@@ -2,21 +2,22 @@ import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import ReactDOM from "react-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { AiOutlineSend } from "react-icons/ai";
 
 function Messages({ messages, addMessages, roomName, deleteMessage }) {
-  const [newMessage, setNewMessage] = useState({ text: "" });
+  const [text, setText] = useState("");
   const messageView = messages.map((message) => (
     <div className="all-message" key={message.id} value={message.room}>
       <Card className="mb-2 message-box">
         <Card.Header className="messageheader">
-          <span>{message.author}</span>
+          <span>
+            {message.username.charAt(0).toUpperCase() +
+              message.username.slice(1)}
+          </span>
           <Button
             type="button"
-            onClick={deleteMessage}
+            value={message.id}
+            onClick={() => deleteMessage(message.id)}
             className="deletebutton"
           >
             Delete
@@ -29,14 +30,19 @@ function Messages({ messages, addMessages, roomName, deleteMessage }) {
     </div>
   ));
 
+  const scrollingElement = document.scrollingElement || document.body;
+  const scrollToBottom = () => {
+    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
-    addMessages(newMessage);
-    setNewMessage("");
+    addMessages(text);
+    setText("");
+    scrollToBottom();
   }
   function handleChange(e) {
-    console.log(e.target.value);
-    setNewMessage(e.target.value);
+    setText(e.target.value);
   }
 
   return (
@@ -51,13 +57,13 @@ function Messages({ messages, addMessages, roomName, deleteMessage }) {
           <Form.Control
             placeholder="type here..."
             type="text"
-            name={roomName.id}
+            value={text}
             onChange={handleChange}
             className="messageinput"
           />
 
           <Button className="submitbutton messagesubmitbutton" type="submit">
-            Send
+            <AiOutlineSend />
           </Button>
         </Form>
       </div>

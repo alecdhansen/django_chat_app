@@ -8,6 +8,7 @@ function ChatApp() {
   const [messages, setMessages] = useState([]);
   const [roomName, setRoomName] = useState("");
   const [roomID, setRoomID] = useState(0);
+  // const [messageID, setMessageID] = useState("");
 
   const handleError = (err) => {
     console.warn(err);
@@ -26,6 +27,11 @@ function ChatApp() {
   useEffect(() => {
     getRoomList();
   }, [getRoomList]);
+
+  const scrollingElement = document.scrollingElement || document.body;
+  const scrollToBottom = () => {
+    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+  };
 
   const addRoom = async (title) => {
     const newRoom = {
@@ -47,21 +53,21 @@ function ChatApp() {
   };
 
   const getMessages = async (e) => {
-    console.log("event", e.target);
+    console.log("event", e.target.value);
     const response = await fetch(
       `/api_v1/rooms/${e.target.value}/messages/`
     ).catch(handleError);
     const data = await response.json();
     setRoomName(e.target.name);
     setRoomID(e.target.value);
+    scrollToBottom();
     setMessages(data);
   };
 
-  const addMessages = async (text, e) => {
+  const addMessages = async (text) => {
     const newMessage = {
       text,
       room: parseInt(roomID),
-      author: 1,
     };
     const response = await fetch(`/api_v1/rooms/${roomID}/messages/`, {
       method: "POST",
@@ -73,25 +79,32 @@ function ChatApp() {
     });
     if (response.ok) {
       console.log(response);
-      setMessages([...messages, newMessage]);
-      return response.json();
+      const data = await response.json();
+      setMessages([data, ...messages]);
     }
   };
 
-  const deleteMessage = async (e) => {
-    const response = await fetch(`/api_v1/rooms/${roomID}/messages/`, {
+  const deleteMessage = async (id) => {
+    // console.log(e.target.value);
+    const response = await fetch(`/api_v1/rooms/${roomID}/messages/${id}/`, {
       method: "DELETE",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
     });
     if (response.ok) {
-      console.log(response);
-      return response.json();
-      const updatedMessages = messages.filter((message) => message.id != e.id);
-      setMessages(updatedMessages);
+      // console.log(response);
+      const data = await response.json();
+      console.log(data);
     }
   };
+
+  // const removeBlog = (id) => {
+  //   const index = blogList.findIndex((blog) => blog.id === id);
+  //   const updatedBlogList = [...blogList];
+  //   updatedBlogList.splice(index, 1);
+  //   setBlogList(updatedBlogList);
+  // };
 
   return (
     <div className="chatapp">

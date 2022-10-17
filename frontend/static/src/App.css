@@ -210,6 +210,7 @@ footer {
 }
 .chatapp {
   display: flex;
+  background-color: #d9d9d9;
 }
 .aside {
   display: flex;
@@ -241,6 +242,21 @@ footer {
   font-weight: 500;
   font-size: 24px;
   margin: 10px 0px;
+}
+.roombtn:hover {
+  background: rgb(229, 70, 70);
+  transition: 0.2s;
+  color: linear-gradient(145deg, #f0f0f0, #cacaca);
+}
+.roombtn:focus {
+  background: rgb(229, 70, 70);
+  transition: 0.2s;
+  color: #f0f0f0;
+}
+.roombtn:active {
+  background: rgb(229, 70, 70);
+  transition: 0.2s;
+  color: linear-gradient(145deg, #f0f0f0, #cacaca);
 }
 .roomtitle {
   font-size: 25px;
@@ -297,15 +313,27 @@ footer {
 }
 .messagetextbox {
   display: flex;
-  left: 50%;
-  margin: 40px 0px;
+  left: 40%;
+  width: 90%;
+  height: 80px;
+  position: sticky;
+  bottom: 0;
+  padding: 30px 0px 60px 0px;
+  margin-bottom: 30px;
+  background-color: #d9d9d9;
 }
 .messageinput {
-  width: 40%;
-  margin-left: 30%;
+  width: 80%;
   margin-right: 20px;
+  height: 35px;
 }
 .messagesubmitbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #fff;
+  height: 35px;
 }
 .message-box {
   width: 800px;
@@ -333,4 +361,10 @@ footer {
 .deletebutton:hover {
   background: linear-gradient(#3d3a3a, #413e3e);
   transition: 0.2s;
+}
+.all-message {
+  margin-bottom: 10px;
+}
+.messagelist {
+  margin-bottom: 70px;
 }

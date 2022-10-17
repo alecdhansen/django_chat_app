@@ -9,6 +9,8 @@ class RoomSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source="author.username")
+
     class Meta:
         model = Message
         fields = "__all__"

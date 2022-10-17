@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 function LoginForm(props) {
