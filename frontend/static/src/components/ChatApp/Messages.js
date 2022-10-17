@@ -2,15 +2,19 @@ import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import ReactDOM from "react-dom";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 function Messages({ messages, addMessages, roomName }) {
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState({ text: "" });
   const messageView = messages.map((message) => (
     <div key={message.id} value={message.room}>
       <Card className="mb-2 message-box">
-        <Card.Header>{message.author}author</Card.Header>
+        <Card.Header className="messageheader">{message.author}</Card.Header>
         <Card.Body>
-          <Card.Text>{message.text}</Card.Text>
+          <Card.Text className="messagebody">{message.text}</Card.Text>
         </Card.Body>
       </Card>
     </div>
@@ -29,17 +33,24 @@ function Messages({ messages, addMessages, roomName }) {
   return (
     <>
       <div className="messagingapp">
-        <Form onSubmit={handleSubmit} value={roomName.id}>
+        <div className="messagelist">{messageView}</div>
+        <Form
+          onSubmit={handleSubmit}
+          value={roomName.id}
+          className="messagetextbox"
+        >
           <Form.Control
             placeholder="type here..."
             type="text"
             name={roomName.id}
             onChange={handleChange}
+            className="messageinput"
           />
 
-          <Button type="submit">Send Chat</Button>
+          <Button className="submitbutton messagesubmitbutton" type="submit">
+            Send
+          </Button>
         </Form>
-        <div className="messagelist">{messageView}</div>
       </div>
     </>
   );

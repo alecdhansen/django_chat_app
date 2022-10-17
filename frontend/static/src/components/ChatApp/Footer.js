@@ -2,7 +2,6 @@ function Footer() {
   return (
     <footer>
       <div className="copywrite">
-        <a href="www.github.com" className="fa-brands fa-github"></a>
         <div>© 2022 CHATTN, Inc.</div>
       </div>
       <nav>

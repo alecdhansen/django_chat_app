@@ -84,7 +84,9 @@ function ChatApp() {
         <RoomList rooms={rooms} addRoom={addRoom} getMessages={getMessages} />
       </aside>
       <main className="mainmessages">
-        <div>{roomName}</div>
+        <div className="messagesroomtitle">
+          <h2>{roomName}</h2>
+        </div>
         <Messages
           messages={messages}
           addMessages={addMessages}
