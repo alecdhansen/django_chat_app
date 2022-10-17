@@ -308,14 +308,29 @@ footer {
 .messagesubmitbutton {
 }
 .message-box {
-  width: 400px;
+  width: 800px;
   background: #f0f0f0;
   box-shadow: 7px 7px 11px #b4b4b4;
-  margin: 5px 0px;
+  margin: 15px 0px;
 }
 .messageheader {
   background-color: rgba(229, 70, 70, 0.59);
+  display: flex;
+  justify-content: space-between;
 }
 .messagebody {
   height: 50px;
+}
+.deletebutton {
+  border-radius: 63px;
+  background: linear-gradient(#292727, #2f2d2d);
+  box-shadow: 5px 5px 10px #121111, 23px 23px 46px #464343;
+  border: none;
+  font-weight: 500;
+  transition: 0.2s;
+  font-size: 12px;
+}
+.deletebutton:hover {
+  background: linear-gradient(#3d3a3a, #413e3e);
+  transition: 0.2s;
 }

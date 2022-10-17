@@ -7,12 +7,21 @@ import Button from "react-bootstrap/Button";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
-function Messages({ messages, addMessages, roomName }) {
+function Messages({ messages, addMessages, roomName, deleteMessage }) {
   const [newMessage, setNewMessage] = useState({ text: "" });
   const messageView = messages.map((message) => (
-    <div key={message.id} value={message.room}>
+    <div className="all-message" key={message.id} value={message.room}>
       <Card className="mb-2 message-box">
-        <Card.Header className="messageheader">{message.author}</Card.Header>
+        <Card.Header className="messageheader">
+          <span>{message.author}</span>
+          <Button
+            type="button"
+            onClick={deleteMessage}
+            className="deletebutton"
+          >
+            Delete
+          </Button>
+        </Card.Header>
         <Card.Body>
           <Card.Text className="messagebody">{message.text}</Card.Text>
         </Card.Body>

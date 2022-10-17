@@ -78,6 +78,21 @@ function ChatApp() {
     }
   };
 
+  const deleteMessage = async (e) => {
+    const response = await fetch(`/api_v1/rooms/${roomID}/messages/`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+    });
+    if (response.ok) {
+      console.log(response);
+      return response.json();
+      const updatedMessages = messages.filter((message) => message.id != e.id);
+      setMessages(updatedMessages);
+    }
+  };
+
   return (
     <div className="chatapp">
       <aside className="aside">
@@ -91,9 +106,17 @@ function ChatApp() {
           messages={messages}
           addMessages={addMessages}
           roomName={roomName}
+          deleteMessage={deleteMessage}
         />
       </main>
     </div>
   );
 }
 export default ChatApp;
+
+// TO DO LIST
+// 1. Fix user login, so username will be associated with messages
+// 2. Erase text in input in messages after message is sent
+// 3. Add logout option
+// 4. Display default room on app launch
+// 5. Add delete message button
