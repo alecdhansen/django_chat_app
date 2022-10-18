@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { AiOutlineSend } from "react-icons/ai";
+import { FaTrashAlt } from "react-icons/fa";
 
 function Messages({ messages, addMessages, roomName, deleteMessage }) {
   const [text, setText] = useState("");
@@ -10,7 +11,7 @@ function Messages({ messages, addMessages, roomName, deleteMessage }) {
     <div className="all-message" key={message.id} value={message.room}>
       <Card className="mb-2 message-box">
         <Card.Header className="messageheader">
-          <span>
+          <span className="username">
             {message.username.charAt(0).toUpperCase() +
               message.username.slice(1)}
           </span>
@@ -20,7 +21,7 @@ function Messages({ messages, addMessages, roomName, deleteMessage }) {
             onClick={() => deleteMessage(message.id)}
             className="deletebutton"
           >
-            Delete
+            <FaTrashAlt />
           </Button>
         </Card.Header>
         <Card.Body>
@@ -55,7 +56,7 @@ function Messages({ messages, addMessages, roomName, deleteMessage }) {
           className="messagetextbox"
         >
           <Form.Control
-            placeholder="type here..."
+            placeholder="Message..."
             type="text"
             value={text}
             onChange={handleChange}

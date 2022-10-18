@@ -342,21 +342,23 @@ footer {
   margin: 15px 0px;
 }
 .messageheader {
-  background-color: rgba(229, 70, 70, 0.59);
+  background-color: rgba(229, 70, 70, 0.842);
   display: flex;
   justify-content: space-between;
 }
 .messagebody {
   height: 50px;
+  padding-left: 40px;
 }
 .deletebutton {
   border-radius: 63px;
-  background: linear-gradient(#292727, #2f2d2d);
+  background: linear-gradient(#8e8989, #534f4f);
   box-shadow: 5px 5px 10px #121111, 23px 23px 46px #464343;
   border: none;
   font-weight: 500;
   transition: 0.2s;
-  font-size: 12px;
+  font-size: 16px;
+  padding: 0px 10px 2px;
 }
 .deletebutton:hover {
   background: linear-gradient(#3d3a3a, #413e3e);
@@ -367,4 +369,10 @@ footer {
 }
 .messagelist {
   margin-bottom: 70px;
+}
+.username {
+  font-weight: 700;
+  margin-top: 4px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
 }
