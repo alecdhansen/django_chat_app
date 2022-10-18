@@ -7,8 +7,7 @@ function ChatApp() {
   const [rooms, setRooms] = useState([]);
   const [messages, setMessages] = useState([]);
   const [roomName, setRoomName] = useState("");
-  const [roomID, setRoomID] = useState(0);
-  // const [messageID, setMessageID] = useState("");
+  const [roomID, setRoomID] = useState(1);
 
   const handleError = (err) => {
     console.warn(err);
@@ -28,6 +27,10 @@ function ChatApp() {
     getRoomList();
   }, [getRoomList]);
 
+  useEffect(() => {
+    handleClick();
+  }, []);
+
   const addRoom = async (title) => {
     const newRoom = {
       title: title,
@@ -41,20 +44,30 @@ function ChatApp() {
       body: JSON.stringify(newRoom),
     });
     if (response.ok) {
-      console.log(response);
       setRooms([...rooms, newRoom]);
-      return response.json();
+      window.location.reload();
     }
   };
 
-  const getMessages = async (e) => {
-    console.log("event", e.target.value);
-    const response = await fetch(
-      `/api_v1/rooms/${e.target.value}/messages/`
-    ).catch(handleError);
+  const handleClick = (e) => {
+    if (e?.type === "click") {
+      // runs on click
+      setRoomName(e.target.name);
+      setRoomID(e.target.value);
+      getMessages(e.target.value);
+    } else {
+      // runs on initial load
+      setRoomName("Fun Room");
+      setRoomID(1);
+      getMessages(1);
+    }
+  };
+
+  const getMessages = async (roomValue) => {
+    const response = await fetch(`/api_v1/rooms/${roomValue}/messages/`).catch(
+      handleError
+    );
     const data = await response.json();
-    setRoomName(e.target.name);
-    setRoomID(e.target.value);
     setMessages(data);
   };
 
@@ -94,7 +107,7 @@ function ChatApp() {
   return (
     <div className="chatapp">
       <aside className="aside">
-        <RoomList rooms={rooms} addRoom={addRoom} getMessages={getMessages} />
+        <RoomList rooms={rooms} addRoom={addRoom} getMessages={handleClick} />
       </aside>
       <main className="mainmessages">
         <div className="messagesroomtitle">
@@ -114,4 +127,14 @@ export default ChatApp;
 
 // TO DO LIST
 // 3. Add logout option
-// 4. Display default room on app launch
+
+// const getMessages = async (e) => {
+//   console.log("event", e.target.value);
+//   const response = await fetch(
+//     `/api_v1/rooms/${e.target.value}/messages/`
+//   ).catch(handleError);
+//   const data = await response.json();
+//   setRoomName(e.target.name);
+//   setRoomID(e.target.value);
+//   setMessages(data);
+// };
